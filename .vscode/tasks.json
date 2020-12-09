@@ -1,0 +1,92 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Clean",
+      "type": "shell",
+      "isBackground": true,
+      "command": "make",
+      "args": [
+        "clean"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Main",
+      "isBackground": true,
+      "command": [
+        "./bin/kickass-build.sh"
+      ],
+      "args": [
+        "${workspaceFolder}/build/main.prg",
+        "${workspaceFolder}/main.asm"
+      ],
+      "group": "test",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Clean"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Tests",
+      "isBackground": true,
+      "command": [
+        "./bin/kickass-build.sh"
+      ],
+      "args": [
+        "${workspaceFolder}/build/test-suite.prg",
+        "${file}"
+      ],
+      "group": "test",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Clean"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Test (C64Debugger)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build Tests"
+      ],
+      "isBackground": true,
+      "command": [
+        "./bin/c64-debugger.sh"
+      ],
+      "args": [
+        "${workspaceFolder}/build/test-suite.prg",
+        "${workspaceFolder}/build/test-suite.vs",
+        "${workspaceFolder}/spec/test-results.d64"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Debug (C64Debugger)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build Main"
+      ],
+      "isBackground": true,
+      "command": [
+        "./bin/c64-debugger.sh"
+      ],
+      "args": [
+        "${workspaceFolder}/build/main.prg",
+        "${workspaceFolder}/build/main.vs"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

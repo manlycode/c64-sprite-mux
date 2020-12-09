@@ -1,0 +1,10 @@
+{
+  "tabs": [
+    {
+      "commands": [
+        "code c64-template-kick.code-workspace",
+        "pwd && /Applications/C64Debugger.app/Contents/MacOS/C64Debugger"
+      ]
+    }
+  ]
+}

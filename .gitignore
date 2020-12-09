@@ -1,0 +1,10 @@
+build/*
+!build/.gitkeep
+vendor/*
+!vendor/.gitkeep
+.asminfo.txt
+.source.txt
+*.dbg
+*.prg
+*.sym
+*.vs

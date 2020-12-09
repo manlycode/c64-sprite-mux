@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"kickassembler.javaRuntime": "/usr/local/opt/openjdk/bin/java",
+		"kickassembler.assemblerJar": "/usr/local/opt/KickAssembler/KickAss.jar",
+		"kickassembler.completionParameterPlaceholders": true,
+		"kickassembler.outputDirectory": "build",
+		"kickassembler.debuggerOptions": "-wait 2500 -autojmp",
+		"kickassembler.debuggerDumpFile": true,
+		"kickassembler.debuggerRuntime": "/Applications/C64Debugger.app/Contents/MacOS/C64Debugger",
+		"kickassembler.emulatorRuntime": "/usr/local/bin/x64sc"
+	}
+}
