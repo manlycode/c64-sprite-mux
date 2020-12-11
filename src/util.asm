@@ -67,3 +67,13 @@
     lda src
     sta dest
 }
+
+.pseudocommand swizzle arg1:arg2 {
+    ldx arg1
+    ldy arg2
+    txa
+    sta arg2
+    tya
+    sta arg1
+}
+

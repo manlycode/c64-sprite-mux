@@ -5,7 +5,7 @@
 .import source "basic.asm"
 .import source "util.asm"
 
-.pseudocommand addRasterInterrupt IRQ:aRow {
+.pseudocommand irq_addRasterISR IRQ:aRow {
     .var row = aRow.getValue()
     .if (aRow.getType()==AT_IMMEDIATE) {
 
@@ -30,8 +30,10 @@
         lda #LO_BYTE          // trigger first interrupt at row 0
         sta vic.line          // VIC_RSTCMP
         setBits vic.ctrlV:HI_BIT
-    } else {        
+    } else {
         ldy row+1
+    
+        clc
         ror row+1
         ror row+1
 
@@ -63,4 +65,19 @@
 .pseudocommand endISRFinal {
     dec vic.irq
     jmp $ea81
+}
+
+
+.namespace irq {
+    .namespace raster {
+        setupTable:
+
+    }
+
+    .macro @rasterTable_equal(height) {
+        .var count = vic.resolution.height/height
+        .byte count                          //size
+        .byte $00                            //idx
+        .lohifill count, i*height
+    }
 }

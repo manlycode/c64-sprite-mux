@@ -53,6 +53,11 @@
   .label COLOR_RAM	= $d800
   .label SCREEN_WIDTH = 40
   .label SCREEN_HEIGHT = 21
+  
+  .namespace resolution {
+    .label WIDTH = 320
+    .label HEIGHT = 200
+  }
 }
 // See <cbm/c128/vica> for the C128's two additional registers at $d02f/$d030
 // They are accessible even in C64 mode and $d030 can garble the video output,
@@ -143,7 +148,7 @@
 }
 
 .macro vic_MultiColorModeOn() {
-  .print "vic.ctrlH="+vic.ctrlH
+.print "vic.ctrlH="+vic.ctrlH
 .print "vic.ctrlH="+vic.ctrlH
   
   lda vic.ctrlH
@@ -226,7 +231,8 @@ copyColorsLoop:
     bne !-
 }
 
-vic_clearColorRam:
+.namespace vic {
+  vic_clearColorRam:
 	ldx #0
 @clearColorRamLoop:
         sta $D800,x
@@ -238,18 +244,6 @@ vic_clearColorRam:
       	rts
 scrollVal:
         .byte $00
-
-.macro vic_clearScreen(target) {
-        ldx #0
-        lda #0
-!:       
-        .for (var i=0; i<(1000/256); i++) {
-          sta target,x
-        }
-        
-        inx
-        bne !-
-}
 
 incScroll:
         clc
@@ -274,3 +268,16 @@ updateScroll:
         adc scrollVal
         sta vic.ctrlH
         rts
+}
+
+.macro vic_clearScreen(target) {
+        ldx #0
+        lda #0
+!:       
+        .for (var i=0; i<(1000/256); i++) {
+          sta target,x
+        }
+        
+        inx
+        bne !-
+}

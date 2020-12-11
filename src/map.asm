@@ -408,15 +408,15 @@ vpYbuffer: .byte $00
     !:  clc
         clv
         .watch copyIdx
-        .break
+
         
         dec copyIdx
         bne !+
-        .break
+
         rts
 
     !:  
-        .break
+
         ldy #25
         sta ptrTable.size
         jsr ptrTable.copy

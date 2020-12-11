@@ -6,6 +6,12 @@ sfspec: :init_spec()
         :it("moves the value at src to dest")
             mov src:dest
             :assert_equal #$22:dest
+    
+    :describe("swizzle")
+        :it("swaps two memory locations")
+            assert_equal16 swiz:#$aabb
+            swizzle swiz:swiz+1
+            assert_equal16 swiz:#$bbaa
 
     :describe("setPtr"); {
         :describe("when given an absolute address")
@@ -35,3 +41,4 @@ sfspec: :init_spec()
 src: .byte $22
 dest: .byte $0
 ptr: .word $0000
+swiz: .word $aabb
