@@ -6,6 +6,7 @@
 #import "chipset/lib/cia.asm"
 #import "chipset/lib/vic2-global.asm"
 #import "chipset/lib/mos6510-global.asm"
+#import "cia.asm"
 
 .label IRQ_1 = 22
 // .label IRQ_2 = 200
@@ -20,11 +21,7 @@
 
 start:
   sei                         // disable IRQ, otherwise C64 will crash
-  lda #$7f                    // stop CIA from producing IRQ
-  sta c64lib.CIA1_IRQ_CONTROL
-  sta c64lib.CIA2_IRQ_CONTROL
-  lda c64lib.CIA1_IRQ_CONTROL
-  lda c64lib.CIA2_IRQ_CONTROL
+  jsr cia.stopIRQ
 
   lda #c64lib.IMR_RASTER      // VIC-II is about to produce raster interrupt
   sta c64lib.IMR

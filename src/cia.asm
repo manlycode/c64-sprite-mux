@@ -1,4 +1,5 @@
 #importonce
+.filenamespace cia
 
 .namespace cia1 {
     .label CIA        = $DC00
@@ -50,3 +51,11 @@
     lda cia1.ICR
     lda cia2.ICR
 }
+
+stopIRQ:
+    lda #$7f                    // stop CIA from producing IRQ
+    sta cia1.ICR
+    sta cia2.ICR
+    lda cia1.ICR
+    lda cia2.ICR
+    rts
