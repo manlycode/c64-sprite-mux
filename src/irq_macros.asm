@@ -68,16 +68,49 @@
 }
 
 
-.namespace irq {
-    .namespace raster {
-        setupTable:
+.namespace irq {    
+    .macro @rasterTable_equal(height, isr, lastISR) {
+        nextRaster:
+            inc tableIdx
+            ldx tableIdx
+            clc 
+            clv
+            lda rowLo,x
+            cmp #$ff    // previous row was last one
+            beq endRaster
 
-    }
 
-    .macro @rasterTable_equal(height) {
-        .var count = vic.resolution.height/height
-        .byte count                          //size
-        .byte $00                            //idx
-        .lohifill count, i*height
+            sta vic.line
+            lda rowHi,x
+            clc
+            clv
+            ror
+            ror
+            ora vic.ctrlV
+            sta vic.ctrlV
+
+
+            lda #$01                // set mask to enable by raster beam
+            sta vic.irqmask         // VIC_IRQEN
+            lda #<isr.getValue()               // Point the system routine to our new irq
+            ldx #>isr.getValue()
+            sta basic.isrAddr
+            stx basic.isrAddr+1
+            rts
+
+        endRaster:
+            lda #0
+            sta tableIdx
+            rts
+
+
+        .var count = vic.resolution.HEIGHT/height
+        tableIdx: .byte $00
+        rowLo:
+            .fill count, <(i*height)
+            .byte $ff
+        rowHi:
+            .fill count, >(i*height)
+            .byte $ff
     }
 }

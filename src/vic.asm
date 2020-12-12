@@ -55,8 +55,8 @@
   .label SCREEN_HEIGHT = 21
   
   .namespace resolution {
-    .label WIDTH = 320
-    .label HEIGHT = 200
+    .label WIDTH = 504
+    .label HEIGHT = 312
   }
 }
 // See <cbm/c128/vica> for the C128's two additional registers at $d02f/$d030

@@ -21,7 +21,7 @@
       ],
       "args": [
         "${workspaceFolder}/build/main.prg",
-        "${workspaceFolder}/main.asm"
+        "${workspaceFolder}/src/main.asm"
       ],
       "group": "test",
       "dependsOrder": "sequence",

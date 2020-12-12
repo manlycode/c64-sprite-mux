@@ -3,7 +3,8 @@
     {
       "commands": [
         "code c64-template-kick.code-workspace",
-        "pwd && /Applications/C64Debugger.app/Contents/MacOS/C64Debugger"
+        "/Applications/C64Debugger.app/Contents/MacOS/C64Debugger",
+        "open /usr/local/opt/KickAssembler/KickAssembler.pdf"
       ]
     }
   ]
