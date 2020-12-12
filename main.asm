@@ -6,18 +6,15 @@
 #import "chipset/lib/cia.asm"
 #import "chipset/lib/vic2-global.asm"
 #import "chipset/lib/mos6510-global.asm"
-#import "cia.asm"
+#import "src/cia.asm"
 
 .label IRQ_1 = 22
 // .label IRQ_2 = 200
 // .label IRQ_3 = 220
 // .label IRQ_4 = 300
 
-.pc = $0801 "Basic Upstart"
-:BasicUpstart(start) // Basic start routine
 
-// Main program
-.pc = $0810 "Program"
+BasicUpstart2(start) // Basic start routine
 
 start:
   sei                         // disable IRQ, otherwise C64 will crash
@@ -38,11 +35,12 @@ start:
   sta c64lib.NMI_HI
   c64lib_configureMemory(c64lib.RAM_IO_RAM)  // turn off kernal, so that our vector becomes visible
   cli
-block:
-  jmp block                   // go into endless loop
+
+
+  jmp *                  // go into endless loop
   
 
-.const MAX_ROW=13
+.const MAX_ROW=9
 .const ROW_HEIGHT = 22
 
 irq1:
@@ -50,6 +48,7 @@ irq1:
 .for (var i = 1; i <= MAX_ROW; i += 2) {
     .var row1 = IRQ_1+i*ROW_HEIGHT
     .var row2 = IRQ_1+((i+1)*ROW_HEIGHT)
+    
 .label odd = *    
     c64lib_irqEnter()
     inc c64lib.BG_COL_0         // change background color 
