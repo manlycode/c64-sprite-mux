@@ -1,6 +1,5 @@
 #importonce
-
-.namespace vic {
+.namespace vic  {
   .label xs0        = $d000
   .label ys0        = $d001
   .label xs1        = $d002
@@ -17,12 +16,12 @@
   .label ys6        = $d00d
   .label xs7        = $d00e
   .label ys7        = $d00f
-  .label msbXs      = $d010
+  .label spriteMSB      = $d010
   .label ctrlV      = $d011 //VIC_CTRL1
   .label line	    = $d012	// raster line
   .label xlp        = $d013	// light pen coordinates
   .label ylp        = $d014
-  .label sactive    = $d015	// sprites: active
+  .label spriteEnable = $d015	// sprites: active
   .label ctrlH      = $d016
   .label sdy        = $d017	// sprites: double height
   .label ram        = $d018	// RAM pointer
@@ -53,20 +52,6 @@
   .label COLOR_RAM	= $d800
   .label SCREEN_WIDTH = 40
   .label SCREEN_HEIGHT = 21
-  
-  .namespace resolution {
-    .namespace ntsc {          
-      .label WIDTH = 504
-      .label HEIGHT = 262
-      .label TOP_LINE = 16
-      .label BOTTOM_LINE = HEIGHT-16
-    }
-    
-    .namespace pal {
-      .label WIDTH = 504
-      .label HEIGHT = 262
-    }
-  }
 }
 // See <cbm/c128/vica> for the C128's two additional registers at $d02f/$d030
 // They are accessible even in C64 mode and $d030 can garble the video output,
