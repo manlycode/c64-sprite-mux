@@ -55,8 +55,17 @@
   .label SCREEN_HEIGHT = 21
   
   .namespace resolution {
-    .label WIDTH = 504
-    .label HEIGHT = 312
+    .namespace ntsc {          
+      .label WIDTH = 504
+      .label HEIGHT = 262
+      .label TOP_LINE = 16
+      .label BOTTOM_LINE = HEIGHT-16
+    }
+    
+    .namespace pal {
+      .label WIDTH = 504
+      .label HEIGHT = 262
+    }
   }
 }
 // See <cbm/c128/vica> for the C128's two additional registers at $d02f/$d030
@@ -157,7 +166,7 @@
 }
 
 .macro vic_MultiColorModeOff() {
-  .print "vic.ctrlH="+vic.ctrlH
+.print "vic.ctrlH="+vic.ctrlH
   .print "vic.ctrlV="+vic.ctrlV
   
   lda vic.ctrlH
