@@ -50,8 +50,14 @@
   .label cs6		  = $d02d   
   .label cs7		  = $d02e
   .label COLOR_RAM	= $d800
-  .label SCREEN_WIDTH = 40
-  .label SCREEN_HEIGHT = 21
+
+  // Dimensions
+  .label SCREEN_COLS = 40
+  .label SCREEN_ROWS = 21
+  .label SCREEN_WIDTH = SCREEN_COLS*8
+  .label SCREEN_HEIGHT = SCREEN_ROWS*8
+  .label SPRITE_WIDTH = 24
+  .label SPRITE_HEIGHT = 21
 }
 // See <cbm/c128/vica> for the C128's two additional registers at $d02f/$d030
 // They are accessible even in C64 mode and $d030 can garble the video output,
